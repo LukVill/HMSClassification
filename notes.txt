@@ -1,0 +1,39 @@
+so far, the train csv has the input and output i need to work with
+
+the problem is that with each patient, they have an eeg and a spectrogram
+
+how the experts did it is that they looked at a specific combinations of eeg and spectrogram for each
+patient and judged it
+
+different scores came up for each separate pair of eeg/spec
+
+train csv contains patient id, their eeg/spec id combo, and classification
+
+NOTES:
+eeg is sampled 200 rows per second
+spec is sampled 
+
+TODO 
+figure out how to put samples of eeg and spec into train csv (row observation frequencies are diff)
+
+Tasks:
+1. remove observations in train csv that are outlier classifications
+(i.e. if majority of observations on patient are A, then remove all that are not A)
+
+2. modify all eegs to have a col stating the id of the eeg
+
+|eeg id|Fp1|F3|...
+
+3. modify all specs to have a col stating the id of the spec
+
+|spec id| time | LL_0.59| ...
+
+4. sample (via strata = consensus) train.csv and then for each eeg/spec, column bind the respective parquet
+data
+
+5. join dataframes
+train csv + eeg ON eeg_id
+train csv + spec ON spec_id and 
+
+modeling tips:
+normalize all values to be within the same range
